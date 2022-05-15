@@ -22,20 +22,19 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install packages
-        run: rm -rf node_modules && yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile
 
       - name: Build project
         run: yarn build
 
       - name: Export static files
-        run: yarn export -o build
+        run: yarn export -o out
 
       - name: Add .nojekyll file
-        run: touch ./build/.nojekyll
+        run: touch ./out/.nojekyll
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4.1.1
+        uses: JamesIves/github-pages-deploy-action@v4.2.3
         with:
           branch: gh-pages
-          clean: true
-          folder: build
+          folder: out
